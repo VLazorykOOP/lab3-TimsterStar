@@ -1,97 +1,198 @@
-﻿// See https://aka.ms/new-console-template for more information
-using MyTask;
+﻿
 
-/// <summary>
-///  Top-level statements 
-///  Код програми (оператори)  вищого рівня
-/// </summary>
-/// 
-Console.WriteLine("Hello, World!");
-//
-//  Приклад коду
-//
-
-Animal[] animals = new Animal[4];
-animals[0] = new Animal();
-animals[0].Name = "Bizon"; animals[0].WWeight=100;
-Console.WriteLine(" my animal " + animals[0].ToString());
-animals[1] = new Animal(100,10,"Cow");
-animals[2] = new Animal(102, 12, "Cow Big");
-animals[3] = new Animal(100, 10, "Zebra");
-
-for(int i = 0; i < 4; i++)
+namespace Lab3
 {
-    Console.WriteLine("  animal " + i + " " + animals[i].ToString());
-}
-
-Big b = new Big();
-Console.WriteLine(" Big" + b +"   "+ b.ToString() + "  " + b.Name);
-
-Console.WriteLine(" Task 2");
-Task2.Run();
-     
-
-/// <summary>
-///  Закічення  іструкцій верхнього рівня
-/// Top-level statements must precede namespace and type declarations.
-/// Оператори верхнього рівня мають передувати оголошенням простору імен і типу.
-///   
-/// </summary>
-class Big
-{
-    private string name =" First init";
-    public Big()
+    
+    //1.9 Створити клас ATriangle (angled triangle, прямокутний трикутник)
+    class ATriangle
     {
-        name = "NoName";
-    }
-    public Big(string name)
-    {
-        this.name = name;
+        private int a, b;
+        private readonly int c;
+
+        public ATriangle()
+        {
+            a = 0;
+            b = 0;
+            c = 0;
+        }
+
+        public ATriangle(int a_, int b_, int c_)
+        {
+            a = a_;
+            b = b_;
+            c = c_;
+        }
+
+        public void Print()
+        {
+            Console.WriteLine($"A: {a}, B: {b}, color: {c}");
+            Console.WriteLine($"P: {P()}");
+            Console.WriteLine($"S: {S()}");
+        }
+
+        public  double P()
+        {
+            double c = Math.Sqrt(a * a + b * b);
+            return a + b + c;
+        }
+
+        public double S()
+        {
+            return 0.5 * a * b;
+        }
+
+        public bool isRivnobedr()
+        {
+            return a == b;
+        }
+        
+        public void setA(int newA)
+        {
+            a = newA;
+        }
+
+        public int getA()
+        {
+            return a;
+        }
+
+        public void setB(int newB)
+        {
+            b = newB;
+        }
+
+        public int getB()
+        {
+            return b;
+        }
+
+        public int getColor()
+        {
+            return c;
+        }
         
     }
-    public string Name { 
-        get { return name; } 
-        set { name = value; }
-    }
-
-};
-namespace MyTask
-{
-    static class Task2
-        {
-       public  static void Run()
-        {
-            Drv d = new Drv("RRR");
-            Console.WriteLine(" rrr  " + d.ToString());
-        }
-        }
-    class Base
+    
+    //2.9. Іграшка, продукт, товар, молочний продукт.
+    class Tovar
     {
-        string NameBase;
-        protected string any_Inform;
-        int type = 0;
-        public int numobj = 0;
-        public Base() {
-            NameBase = "Base";
-            any_Inform = "";
-
+        protected string name;
+        protected double price;
+        public Tovar()
+        {
+            name = "none";
+            price = 0;
         }
+        
+        protected Tovar(string n, double p)
+        {
+            name = n;
+            price = p;
+        }
+
         public void Show()
         {
-            Console.WriteLine(" Show Base " + NameBase);
+            Console.WriteLine($"Name: {name}, price: {price}");
         }
-    };
+    }
 
-    class Drv :  Base
+    class Toy : Tovar
     {
-        Drv()
+        private int minAge;
+
+        public Toy()
         {
-            numobj = 10;
+            minAge = 3;
+            name = "Toy";
+            price = 40;
         }
-       public Drv(string any_Inform)
+
+        public Toy(int age, string n, double p)
         {
-            numobj = 11;
-            this.any_Inform = any_Inform;
+            minAge = age;
+            name = n;
+            price = p;
+        } 
+        
+        public void Show()
+        {
+            Console.WriteLine($"Name: {name}, price: {price}, minAge: {minAge}");
+        }
+    }
+
+    class Product : Tovar
+    {
+        private int creationYear;
+        
+        public Product()
+        {
+            creationYear = 2022;
+            name = "Product";
+            price = 12;
+        }
+
+        public Product(int year, string n, double p)
+        {
+            creationYear = year;
+            name = n;
+            price = p;
+        }
+        
+        public void Show()
+        {
+            Console.WriteLine($"Name: {name}, price: {price}, creationYear: {creationYear}");
+        }
+    }
+
+    class MolochniyProduct : Tovar
+    {
+        public string country;
+        public MolochniyProduct()
+        {
+            country = "Ukraine";
+            name = "MolochniyProduct";
+            price = 25;
+        }
+
+        public MolochniyProduct(string cntry, string n, double p)
+        {
+            country = cntry;
+            name = n;
+            price = p;
+        } 
+        
+        public void Show()
+        {
+            Console.WriteLine($"Name: {name}, price: {price}, country: {country}");
+        }
+    }
+    
+    static class Program
+    {
+        static void Main()
+        {
+            ATriangle a = new ATriangle();
+            ATriangle b = new ATriangle(2, 3, 3);
+            Console.WriteLine("A:");
+            a.Print();
+            Console.WriteLine("B:");
+            b.Print();
+            //-----------------
+            Tovar tovar = new Tovar();
+            tovar.Show();
+            Console.WriteLine();
+            
+            Toy toy = new Toy();
+            toy.Show();
+            Console.WriteLine();
+
+            Product product = new Product();
+            product.Show();
+            Console.WriteLine();
+
+            MolochniyProduct molochniyProduct = new MolochniyProduct();
+            molochniyProduct.Show();
+            Console.WriteLine();
         }
     }
 }
